@@ -9,6 +9,7 @@ from flask import jsonify
 from checks.ExtFsMounted import ExtFsMountedHealthCheck
 from checks.Temperature import TemperatureHealthCheck
 from checks.CronCheck import CronHealthCheck
+from checks.MemCheck import MemoryHealthCheck
 
 
 
@@ -16,7 +17,8 @@ health_checks = [
     ExtFsMountedHealthCheck("Stockpile", "/mnt/Stockpile/"),
     ExtFsMountedHealthCheck("Freezer", "/mnt/Freezer/"),
     TemperatureHealthCheck(),
-    CronHealthCheck(7)
+    CronHealthCheck(7),
+    MemoryHealthCheck()
 ]
 
 app = flask.Flask(__name__)

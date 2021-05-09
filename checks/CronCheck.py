@@ -11,7 +11,7 @@ class CronHealthCheck(HealthCheck):
         return f"CronHealthCheck.{self.number_of_items_in_cron}"
 
     def run(self):
-        out = check_output(["crontab -l -u tomek | grep/home | wc -l"], shell=True)
+        out = check_output(["crontab -l -u pi | grep /home | wc -l"], shell=True)
         result = int(out)
         if result != self.number_of_items_in_cron:
             return Result(healthy=False, message=f"Number of elements in cron is different than expected. Current={result} expected={self.number_of_items_in_cron}")
