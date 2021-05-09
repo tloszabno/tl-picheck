@@ -8,13 +8,15 @@ from flask import jsonify
 
 from checks.ExtFsMounted import ExtFsMountedHealthCheck
 from checks.Temperature import TemperatureHealthCheck
+from checks.CronCheck import CronHealthCheck
 
 
 
 health_checks = [
-    ExtFsMountedHealthCheck("Stockpile", "/media/Stockpile/Data"),
-    ExtFsMountedHealthCheck("Freezer", "/media/Stockpile/Data"),
-    TemperatureHealthCheck()
+    ExtFsMountedHealthCheck("Stockpile", "/mnt/Stockpile/"),
+    ExtFsMountedHealthCheck("Freezer", "/mnt/Freezer/"),
+    TemperatureHealthCheck(),
+    CronHealthCheck(7)
 ]
 
 app = flask.Flask(__name__)
@@ -27,9 +29,8 @@ def health_check():
         name = check.name()
         try:
             result = check.run()
-            healthy = result.healthy
-            healthy &= healthy
-            results.append({"name": name, "result": result.as_json(), "healthy": healthy})
+            healthy &= result.healthy
+            results.append({"name": name, "result": result.as_json(), "healthy": result.healthy})
         except Exception as e:
             results.append({"name": name, "error": str(e), "healthy": False})
             healthy = False
