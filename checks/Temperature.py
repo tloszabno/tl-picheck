@@ -21,6 +21,6 @@ class  TemperatureHealthCheck(HealthCheck):
         if not temp:
             return Result(healthy=False, message="Cannot get temperature")
         if temp > 80:
-            return Result(healthy=False, message=f"Temperature is to big. Currently is {str(temp)} C")
+            return Result(healthy=False, message=f"Temperature is too big. Currently is {str(temp)} C")
 
-        return Result(healthy=True, message=f"Temperature is ok ({str(temp)}C")
+        return Result(healthy=True, message=f"Temperature is ok ({str(temp)}C)")

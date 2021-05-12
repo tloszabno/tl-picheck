@@ -15,5 +15,5 @@ class CronHealthCheck(HealthCheck):
         result = int(out)
         if result != self.number_of_items_in_cron:
             return Result(healthy=False, message=f"Number of elements in cron is different than expected. Current={result} expected={self.number_of_items_in_cron}")
-        return Result(healthy=True, message=f"Number of cron elements matches. Expected {self.number_of_items_in_cron}")
+        return Result(healthy=True, message=f"Number of cron elements match. Expected {self.number_of_items_in_cron}")
 
